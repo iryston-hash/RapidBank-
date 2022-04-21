@@ -147,7 +147,7 @@ movements.forEach(function (mov, i, arr) {
 
 
 
-// for (const move of movements) {
+// for (const move of movements) {dfd
 //   if(move > 0) {
 //     console.log(`${move} have been deposited`);
 //   } else {
