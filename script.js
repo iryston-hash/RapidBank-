@@ -1,14 +1,9 @@
 'use strict';
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// BANKIST APP
-
-// Data
 const account1 = {
-  owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
+  owner: 'Armanas Bagajevas',
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250 , -10000 ],
+  interestRate: 1.2,  
   pin: 1111,
 };
 
@@ -61,131 +56,86 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
+// const displayMovements = function(movements) {
+//   containerMovements.innerHTML = ''
+//   movements.forEach(function(mov , i) {
+//     const type = mov > 0 ? 'deposit' : 'withdrawal'
+//     const html = `<div class="movements__row">
+//     <div class="movements__type movements__type--${type}">
+//     ${i + 1} ${type}
+//     </div>
+//     <div class="movements__value">${mov}</div>
+//   </div>`
+//   containerMovements.insertAdjacentHTML('afterbegin', html)
+//   })
+// } 
+// displayMovements(account1.movements)
 
-// const currencies = new Map([
-//   ['USD', 'United States dollar'],
-//   ['EUR', 'Euro'],
-//   ['GBP', 'Pound sterling'],
-// ]);
+const displayMovements = function(movements) {
+  containerMovements.innerHTML = ''
+  movements.forEach(function(mov , i) {
+    const type = mov > 0 ? 'deposit 💹' : 'withdrawal 📉'
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+      <div class="movements__value">${mov} $</div>
+    </div>
+    `
+    containerMovements.insertAdjacentHTML('afterbegin', html)
+  })
+} 
+displayMovements(account1.movements)
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// shortning of names
+const createUserNamesFun = function(accs) {
+  accs.forEach(function(acc) {
+    acc.userShortName = acc.owner
+    .toLocaleLowerCase()
+    .split(' ')
+    .map(word => word[0])
+    .join('')
+  })
+} 
+createUserNamesFun(accounts);
+console.log(accounts);
 
-/////////////////////////////////////////////////
-// SLICE METHOD
-const arr = ['a', 'b', 'd', 'c', 'f'];
-// console.log(arr.slice(1));
-// console.log(arr.slice(-1));
-// console.log(arr.slice(2,-1));
-//
-// console.log(arr);
-// we can use spread operator as an alternative
-// console.log([...arr]);
+///////////////////////////////////////////////////////////
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250 , -10000]
+// const euroToUsd = 2
 
-// SPLICE - @mutates@ the original array , unline SLICE
-// console.log(arr.splice(2));
-// arr.splice(-1)
-// arr.splice(2,3)
-// console.log(arr);
-
-// ---- REVERSE ---- @mutates@ original array
-// const arr1 = ['a','b','d','c','f']
-// const arr2 = ['1','2','3','4','5']
-// console.log(arr2);
-// console.log(arr2.reverse());
-// console.log(arr2);
-
-// // CONCAT does not @mutate@ org arr
-// const letters = arr1.concat(arr2)
-// console.log(letters);
-// console.log([...arr , ...arr2]);
-
-// //  JOIN turn arr into string
-// console.log(letters.join(' - '));
-
-// //  ---- new AT method
-
-// const arr3 = [20,10,30]
-// console.log('I |' , arr3[0]);
-// console.log('II |' ,arr3[arr3.length - 1]);
-// console.log('III |', arr3.at(-1));
-// console.log('IV |', arr3.slice(-1)[0]);
-//
-
-// ---- Loop forEach ----
-
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-// // I variant
-// // for (const move of movements) {
-//   for (const [i, movement] of movements.entries()) {
-//   if (movement > 0) {
-//     console.log(`opperation - Deposit No(${i + 1}) have been Dposited = ${movement} €`);
-//   } else {
-//     console.log(`opperation - Withdraw No(${i + 1}) of = ${Math.abs(movement)}  €`);
-//   }
-// }
-
-// console.log('----------');
-// // II  variant !
-// movements.forEach(function (mov, i, arr) {
-//   if (mov > 0) {
-//     console.log(`opperation - Deposit No(${i + 1}) = ${mov} €`);
-//   } else {
-//     console.log(`opperation - Withdraw No(${i + 1}) = ${Math.abs(mov)} €`);
-//   }
+// // I)  1)regular fun. and  2)functional arrow variant (BETTER WAY)
+// // 1)
+// const  movementsUSD = movements.map(function(move) {
+//   return move * euroToUsd
 // })
+// console.log(movementsUSD);
 
-// for (const move of movements) {dfd
-//   if(move > 0) {
-//     console.log(`${move} have been deposited`);
-//   } else {
-//     console.log(`${Math.abs(move)} have been withdrewned`);
-//   }
-// }
+// // 2)
+// // const movementsUSD = movements.map(move => move * euroToUsd)
+// // console.log(movementsUSD);
 
-// console.log('===============');
+// // II) For variant 
+// const  movementsUSDFor = []
+// for (const n of movements) movementsUSDFor.push(n * euroToUsd)
+// console.log(movementsUSDFor);
+// // 
+// //------------------
+// // forEach
 
-// movements.forEach(function (move) {
-//   if (move > 0) {
-//     console.log(`${move} have been deposited`);
-//   } else {
-//     console.log(`${Math.abs(move)} have been withdrewned`);
-//   }
-// })
+// const movementsDesc = movements.map(
+//   (mov , i) => 
+// // {
+//   `movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrawned'}  ${Math.abs(mov)}`
+//   // if (mov > 0) {
+//   //   return `movement ${i + 1}: deposited ${mov}`
+//   // } else {
+//   //   return `movement ${i + 1}: withdrawned ${mov}`
+//   // }
+// )
+// console.log(movementsDesc);
 
-// ----------------------
-// ---- MAP FOREACH ----
-// const currencies = new Map([
-//   ['USD', 'United States dollar'],
-//   ['EUR', 'Euro'],
-//   ['GBP', 'Pound sterling'],
-// ]);
-// currencies.forEach(function (value, key) {
-//   console.log(`${key}: ${value}`);
-// })
-//
-// --------------------------------------- 
-// // SET , does not have indexes and key values
+// 
+// -------------
+//  filter
 
-// const currenciesUnique = new Set(['usd', 'gbp', 'usd', 'eur', 'eur'])
-// console.log(currenciesUnique);
-// currenciesUnique.forEach(function (value, _) {
-// console.log(`${value}: ${value}`);
-// } )
-
-// const currencies = new Map ([
-//   ['USD', 'United States dollar'],
-//   ['EUR', 'Euro'],
-//   ['GBP', 'Pound sterling'],
-// ]);
-
-// currencies.forEach(function(value,key) {
-//   console.log(`${key}: ${value}`);
-// } )
-// -----------------------------------------------
-// const currenciesUnique = new Set(['usd', 'gbp', 'eur', 'usd', 'eur'])
-// currenciesUnique.forEach(function (value, _) {
-// console.log(`${value}: ${value}`);
-// } )
+movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30]
