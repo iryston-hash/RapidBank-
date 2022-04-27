@@ -2,8 +2,8 @@
 
 const account1 = {
   owner: 'Armanas Bagajevas',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250 , -10000 ],
-  interestRate: 1.2,  
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250, -10000],
+  interestRate: 1.2,
   pin: 1111,
 };
 
@@ -68,36 +68,84 @@ const inputClosePin = document.querySelector('.form__input--pin');
 //   </div>`
 //   containerMovements.insertAdjacentHTML('afterbegin', html)
 //   })
-// } 
+// }
 // displayMovements(account1.movements)
 
-const displayMovements = function(movements) {
-  containerMovements.innerHTML = ''
-  movements.forEach(function(mov , i) {
-    const type = mov > 0 ? 'deposit 💹' : 'withdrawal 📉'
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit 💹' : 'withdrawal 📉';
     const html = `
     <div class="movements__row">
-      <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-      <div class="movements__value">${mov} $</div>
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+      <div class="movements__value">${mov} €</div>
     </div>
-    `
-    containerMovements.insertAdjacentHTML('afterbegin', html)
-  })
-} 
-displayMovements(account1.movements)
+    `;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+displayMovements(account1.movements);
 
 // shortning of names
-const createUserNamesFun = function(accs) {
-  accs.forEach(function(acc) {
+const createUserNamesFun = function (accs) {
+  accs.forEach(function (acc) {
     acc.userShortName = acc.owner
-    .toLocaleLowerCase()
-    .split(' ')
-    .map(word => word[0])
-    .join('')
-  })
-} 
+      .toLocaleLowerCase()
+      .split(' ')
+      .map(word => word[0])
+      .join('');
+  });
+};
 createUserNamesFun(accounts);
-console.log(accounts);
+// console.log(accounts);
+
+// reducing balance to one value
+const calcPrintBalance = function (movements) {
+  const balance = movements.reduce((accum, val) => accum + val);
+  labelBalance.textContent = `${balance} €`;
+};
+calcPrintBalance(account1.movements);
+
+
+// display summary of balanace
+const calcPrintSummary = function (movements) {
+
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((accum, mov) => accum + mov, 0);
+  labelSumIn.textContent = `${incomes} €`;
+
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((accum, mov) => accum + mov, 0);
+  labelSumOut.textContent = `${Math.abs(outcomes)} €`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int,arr) => {
+      console.log(arr);
+      return int >= 1;
+    })
+    .reduce((accum, int) => accum + int, 0);
+  labelSumInterest.textContent = `${interest} €`;
+};
+calcPrintSummary(account1.movements);
+
+//  REDUCE MAXIMUM VALUE
+const movements = [5000, 3400, -150, -790, -3210, -1000, 8500, -30];
+
+const euroToUsd = 1.5;
+const totalDepositUSD = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * euroToUsd)
+  .reduce((accum, mov) => accum + mov, 0);
+console.log(totalDepositUSD);
+// ||||||||||||
+// const totalDepositUSD = movements.filter(mov => mov > 0).map(mov => mov * euroToUsd).reduce((accum,mov) => accum + mov, 0)
+// console.log(totalDepositUSD);
 
 ///////////////////////////////////////////////////////////
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250 , -10000]
@@ -114,16 +162,16 @@ console.log(accounts);
 // // const movementsUSD = movements.map(move => move * euroToUsd)
 // // console.log(movementsUSD);
 
-// // II) For variant 
+// // II) For variant
 // const  movementsUSDFor = []
 // for (const n of movements) movementsUSDFor.push(n * euroToUsd)
 // console.log(movementsUSDFor);
-// // 
+// //
 // //------------------
 // // forEach
 
 // const movementsDesc = movements.map(
-//   (mov , i) => 
+//   (mov , i) =>
 // // {
 //   `movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrawned'}  ${Math.abs(mov)}`
 //   // if (mov > 0) {
@@ -134,8 +182,56 @@ console.log(accounts);
 // )
 // console.log(movementsDesc);
 
-// 
+//
 // -------------
 //  filter
+// const movements = [5000, 3400, -150, -790, -3210, -1000, 8500, -30]
 
-movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30]
+// // FILTER variant (✔)
+// const depos = movements.filter(function(mov) {
+//   return mov > 0
+// })
+// console.log(movements);
+// console.log(depos);
+
+// // forEach variant (X)
+// const deposFor = []
+// for(const move of movements) if (move > 0) deposFor.push(move)
+// console.log(deposFor);
+
+// // const withdrawals = movements.filter(function(mov) {
+// //   return mov < 0
+// // })
+// // console.log(withdrawals);
+
+// // using arrow function
+// const  withdrawals = movements.filter(mov => mov < 0 )
+// console.log(withdrawals);
+
+// //
+// const  withdrawalsFor = []
+// for (const mov of movements)
+// if (mov < 0) withdrawalsFor.push(mov)
+// console.log(withdrawalsFor);
+
+//
+// --------- REDUCE ---------
+// # reduce has accumulator as first parameter #
+
+// // Arrow fun. variant
+// const balance = movements.reduce((acc, val) => acc + val, 0)
+// console.log(balance);
+
+// // regular function
+// const balance0 = movements.reduce(function(accum, val) {
+//   return accum + val
+// },0)
+// console.log(balance0);
+
+// // same using FOR loop
+// let balanceFor = 0
+// for (const n of movements) balanceFor += n
+// console.log(balanceFor);
+
+// const balance = movements.reduce((accum,val) => accum + val,0)
+// console.log(balance);

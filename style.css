@@ -107,12 +107,13 @@ nav {
 
 .balance__date {
   font-size: 1.4rem;
-  color: rgb(49, 0, 46);
+  color: rgb(232, 190, 0);
 }
 
 .balance__value {
   font-size: 4.5rem;
   font-weight: 400;
+  color: rgb(232, 190, 0);
 }
 
 .movements {
