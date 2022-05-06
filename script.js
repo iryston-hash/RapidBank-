@@ -99,10 +99,16 @@ const createUserNamesFun = function (accs) {
 createUserNamesFun(accounts);
 // console.log(accounts);
 
+const updateUI = function (acc) {
+  displayMovements(acc.movements);
+  calcPrintBalance(acc);
+  calcPrintSummary(acc);
+};
+
 // reducing balance to one value
-const calcPrintBalance = function (movements) {
-  const balance = movements.reduce((accum, val) => accum + val);
-  labelBalance.textContent = `${balance} €`;
+const calcPrintBalance = function (acc) {
+  acc.balance = acc.movements.reduce((accum, val) => accum + val, 0);
+  labelBalance.textContent = `${acc.balance} €`;
 };
 
 // display summary of balanace
@@ -121,7 +127,7 @@ const calcPrintSummary = function (acc) {
     .filter(mov => mov > 0)
     .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, arr) => {
-      console.log(arr);
+      // console.log(arr);
       return int >= 1;
     })
     .reduce((accum, int) => accum + int, 0);
@@ -136,7 +142,7 @@ const totalDepositUSD = movements
   .filter(mov => mov > 0)
   .map(mov => mov * euroToUsd)
   .reduce((accum, mov) => accum + mov, 0);
-console.log(totalDepositUSD);
+// console.log(totalDepositUSD);
 // ||||||||||||
 // const totalDepositUSD = movements.filter(mov => mov > 0).map(mov => mov * euroToUsd).reduce((accum,mov) => accum + mov, 0)
 // console.log(totalDepositUSD);
@@ -160,10 +166,47 @@ btnLogin.addEventListener('click', function (e) {
   inputLoginUsername.value = inputLoginPin.value = '';
   inputLoginPin.blur();
   containerApp.style.opacity = 100;
-  displayMovements(currentAccount.movements);
-  calcPrintBalance(currentAccount.movements);
-  calcPrintSummary(currentAccount);
+  // displayMovements(currentAccount.movements);
+  // calcPrintBalance(currentAccount);
+  // calcPrintSummary(currentAccount);
+  updateUI(currentAccount);
 });
+
+//  transfer
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(
+    acc => acc.userShortName === inputTransferTo.value
+  );
+  inputTransferAmount.value = inputTransferTo.value = '';
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.userShortName !== currentAccount.userShortName
+  ) {
+    console.log('transfer ok');
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+    updateUI(currentAccount);
+  }
+});
+
+//  delete Account
+
+btnClose.addEventListener('click', function(e){
+  e.preventDefault()
+  if (
+    inputCloseUsername.value === currentAccount.userShortName && Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(acc => acc.userShortName === currentAccount.userShortName)
+    console.log(index);
+    accounts.splice(index, 1)
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = ''
+})
 
 ///////////////////////////////////////////////////////////
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250 , -10000]
@@ -259,4 +302,4 @@ btnLogin.addEventListener('click', function (e) {
 const firstWithdrawal = movements.find(mov => mov < 0);
 
 const account = accounts.find(acc => acc.owner === 'Armanas Bagajevas');
-console.log(account);
+// console.log(account);
