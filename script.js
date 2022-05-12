@@ -231,7 +231,7 @@ let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   displayMovements(currentAccount.movements, !sorted);
-  sorted = !sorted
+  sorted = !sorted;
 });
 
 ///////////////////////////////////////////////////////////
@@ -401,3 +401,49 @@ movements.sort((a, b) => a - b);
 // =>>>>> SHORT VERSION OF SORT <<<<<=
 movements.sort((a, b) => b - a);
 // console.log(movements);
+
+// MORE WAYS to create [ARRAYS] & FILL Method
+
+// regular
+console.log([1, 2, 3]);
+// array construction
+console.log(new Array(1, 2, 3, 4));
+
+//  ARRAY CONSTRUCTION FUNCTION , creates 7 empty array elements with FILL Method.
+
+const x = new Array(7);
+x.fill(25, 0, 7);
+console.log(x);
+
+// ARRAR.FROM , can convert array like elements into actual arrays
+
+const y = Array.from({ length: 7 }, () => 10);
+console.log(y);
+
+// programatically better than the new Array example.
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+// converting NodeList into Array
+
+// I) Variant
+// labelBalance.addEventListener('click', function () {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value')
+//   );
+//   console.log(movementsUI.map(el => el.textContent.replace('€', '')));
+// });
+
+// II) Variant
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+});
+
+// III) bonus variant with SPREAD operator , you need to use map separatelly then.
+
+const movementsUI2 = [...document.querySelectorAll('.movements__value')]
