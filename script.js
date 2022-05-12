@@ -71,9 +71,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // }
 // displayMovements(account1.movements)
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit 💹' : 'withdrawal 📉';
     const html = `
     <div class="movements__row">
@@ -224,6 +226,14 @@ btnLoan.addEventListener('click', function (e) {
   inputLoanAmount.value = '';
 });
 
+//  SORTING balance
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted
+});
+
 ///////////////////////////////////////////////////////////
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250 , -10000]
 // const euroToUsd = 2
@@ -322,24 +332,21 @@ const account = accounts.find(acc => acc.owner === 'Armanas Bagajevas');
 
 // SOME checks for current condition
 const someDepos = movements.some(m => m > 2000);
-console.log(someDepos);
+// console.log(someDepos);
 //  checks for all conditions
-console.log(movements.every(mov => mov > 0));
-console.log(account4.movements.every(mov => mov > 0));
-
-// sorting arrays
-const players = ['thu', 'aram', 'borat', 'box'];
+// console.log(movements.every(mov => mov > 0));
+// console.log(account4.movements.every(mov => mov > 0));
 
 // FLAT & FLATMAP (combines flat method with map method)
 const arr = [[1, 2, 3, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat());
+// console.log(arr.flat());
 
 const arrDeep = [
   [[2, 3, 4], 3],
   [0, 0, 0, 7],
   [2, 3],
 ];
-console.log(arrDeep.flat(2));
+// console.log(arrDeep.flat(2));
 
 // const accMov = accounts.map(acc => acc.movements)
 // const flatMovements =  accMov.flat()
@@ -348,13 +355,49 @@ console.log(arrDeep.flat(2));
 // // const overallBalance = flatMovements.reduce((acc,mov) => acc + mov, 0)
 // console.log(overallBalance);
 
-// Chaining all actions before
+//FLAT,  Chaining all actions before
 // const overallBalance = accounts
 //   .map(acc => acc.movements)
 //   .flat()
 //   .reduce((accum, mov) => accum + mov, 0);
 // console.log(overallBalance);
 
-// FLATMAP 
-const overallBalance = accounts.flatMap(acc => acc.movements).reduce((accum,mov) => accum + mov, 0)
-console.log(overallBalance);
+// FLATMAP
+const overallBalance = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((accum, mov) => accum + mov, 0);
+// console.log(overallBalance);
+
+//
+// SORTING ARRAYS (mutates)
+// SORTING strings
+const owners = ['ala', 'ada', 'aa', 'assa', 'anna'];
+// console.log(owners);
+// console.log(owners.sort());
+
+// SORTING numbers
+
+// Ascending.
+// console.log(movements);
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (b > a) return -1;
+// });
+// console.log(movements);
+
+// =>>>>> SHORT VERSION OF SORT <<<<<=
+//  ... => (a - b) -> automatically returns the values , no need to write 'return' manually. because we using arrow function.
+
+movements.sort((a, b) => a - b);
+// console.log(movements);
+
+// Descending.
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (b > a) return 1;
+// });
+// console.log(movements);
+
+// =>>>>> SHORT VERSION OF SORT <<<<<=
+movements.sort((a, b) => b - a);
+// console.log(movements);
