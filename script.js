@@ -195,18 +195,34 @@ btnTransfer.addEventListener('click', function (e) {
 
 //  delete Account
 
-btnClose.addEventListener('click', function(e){
-  e.preventDefault()
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
   if (
-    inputCloseUsername.value === currentAccount.userShortName && Number(inputClosePin.value) === currentAccount.pin
+    inputCloseUsername.value === currentAccount.userShortName &&
+    Number(inputClosePin.value) === currentAccount.pin
   ) {
-    const index = accounts.findIndex(acc => acc.userShortName === currentAccount.userShortName)
+    const index = accounts.findIndex(
+      acc => acc.userShortName === currentAccount.userShortName
+    );
     console.log(index);
-    accounts.splice(index, 1)
+    accounts.splice(index, 1);
     containerApp.style.opacity = 0;
   }
-  inputCloseUsername.value = inputClosePin.value = ''
-})
+  inputCloseUsername.value = inputClosePin.value = '';
+});
+
+// loan
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // movement add
+    currentAccount.movements.push(amount);
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
 
 ///////////////////////////////////////////////////////////
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250 , -10000]
@@ -303,3 +319,42 @@ const firstWithdrawal = movements.find(mov => mov < 0);
 
 const account = accounts.find(acc => acc.owner === 'Armanas Bagajevas');
 // console.log(account);
+
+// SOME checks for current condition
+const someDepos = movements.some(m => m > 2000);
+console.log(someDepos);
+//  checks for all conditions
+console.log(movements.every(mov => mov > 0));
+console.log(account4.movements.every(mov => mov > 0));
+
+// sorting arrays
+const players = ['thu', 'aram', 'borat', 'box'];
+
+// FLAT & FLATMAP (combines flat method with map method)
+const arr = [[1, 2, 3, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+
+const arrDeep = [
+  [[2, 3, 4], 3],
+  [0, 0, 0, 7],
+  [2, 3],
+];
+console.log(arrDeep.flat(2));
+
+// const accMov = accounts.map(acc => acc.movements)
+// const flatMovements =  accMov.flat()
+// console.log(flatMovements);
+// // adding all values
+// // const overallBalance = flatMovements.reduce((acc,mov) => acc + mov, 0)
+// console.log(overallBalance);
+
+// Chaining all actions before
+// const overallBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((accum, mov) => accum + mov, 0);
+// console.log(overallBalance);
+
+// FLATMAP 
+const overallBalance = accounts.flatMap(acc => acc.movements).reduce((accum,mov) => accum + mov, 0)
+console.log(overallBalance);
