@@ -82,7 +82,7 @@ const displayMovements = function (movements, sort = false) {
       <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-      <div class="movements__value">${mov} €</div>
+      <div class="movements__value">${mov.toFixed(2)} €</div>
     </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -110,7 +110,7 @@ const updateUI = function (acc) {
 // reducing balance to one value
 const calcPrintBalance = function (acc) {
   acc.balance = acc.movements.reduce((accum, val) => accum + val, 0);
-  labelBalance.textContent = `${acc.balance} €`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)} €`;
 };
 
 // display summary of balanace
@@ -118,7 +118,7 @@ const calcPrintSummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((accum, mov) => accum + mov, 0);
-  labelSumIn.textContent = `${incomes} €`;
+  labelSumIn.textContent = `${incomes.toFixed(2)} €`;
 
   const outcomes = acc.movements
     .filter(mov => mov < 0)
@@ -133,7 +133,7 @@ const calcPrintSummary = function (acc) {
       return int >= 1;
     })
     .reduce((accum, int) => accum + int, 0);
-  labelSumInterest.textContent = `${interest} €`;
+  labelSumInterest.textContent = `${interest.toFixed(2)} €`;
 };
 
 //  REDUCE MAXIMUM VALUE
@@ -217,7 +217,7 @@ btnClose.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // movement add
     currentAccount.movements.push(amount);
@@ -405,24 +405,24 @@ movements.sort((a, b) => b - a);
 // MORE WAYS to create [ARRAYS] & FILL Method
 
 // regular
-console.log([1, 2, 3]);
-// array construction
-console.log(new Array(1, 2, 3, 4));
+// console.log([1, 2, 3]);
+// // array construction
+// console.log(new Array(1, 2, 3, 4));
 
-//  ARRAY CONSTRUCTION FUNCTION , creates 7 empty array elements with FILL Method.
+// //  ARRAY CONSTRUCTION FUNCTION , creates 7 empty array elements with FILL Method.
 
-const x = new Array(7);
-x.fill(25, 0, 7);
-console.log(x);
+// const x = new Array(7);
+// x.fill(25, 0, 7);
+// console.log(x);
 
-// ARRAR.FROM , can convert array like elements into actual arrays
+// // ARRAR.FROM , can convert array like elements into actual arrays
 
-const y = Array.from({ length: 7 }, () => 10);
-console.log(y);
+// const y = Array.from({ length: 7 }, () => 10);
+// console.log(y);
 
-// programatically better than the new Array example.
-const z = Array.from({ length: 7 }, (_, i) => i + 1);
-console.log(z);
+// // programatically better than the new Array example.
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
 
 // converting NodeList into Array
 
@@ -436,14 +436,96 @@ console.log(z);
 
 // II) Variant
 
-labelBalance.addEventListener('click', function () {
-  const movementsUI = Array.from(
-    document.querySelectorAll('.movements__value'),
-    el => Number(el.textContent.replace('€', ''))
-  );
-  console.log(movementsUI);
-});
+// labelBalance.addEventListener('click', function () {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('€', ''))
+//   );
+//   console.log(movementsUI);
+// });
 
-// III) bonus variant with SPREAD operator , you need to use map separatelly then.
+// // III) bonus variant with SPREAD operator , you need to use map separatelly then.
 
-const movementsUI2 = [...document.querySelectorAll('.movements__value')]
+// const movementsUI2 = [...document.querySelectorAll('.movements__value')]
+
+
+// NUMBERS
+
+// STRING to NUMBER
+
+// console.log(Number('23'));
+// console.log(+'22');
+
+// // Parsing
+// console.log(Number.parseInt('30px', 10));
+// console.log(Number.parseFloat('2.5rem'));
+// console.log(parseFloat('2.5rem'));
+
+// // NaN
+// console.log(Number.isNaN(3));
+
+// // Best way to check if an element is a Number is using (.isFinite) method
+
+// console.log(Number.isFinite(22));
+
+// // isInteger
+// console.log(Number.isInteger(22.3));
+// console.log(Number.isInteger(22.0));
+
+// 
+// MATH and Rounding 
+// console.log(Math.sqrt());
+
+// console.log(Math.max(22,33,44,55));
+// console.log(Math.max(22,'33',44,55));
+// console.log(Math.min(22,33,44,55));
+
+// // Math RANDOM
+// console.log(Math.trunc(Math.random() * 10) + 1);
+
+// const intRandom = (min, max) => Math.trunc(Math.random() * (max - min) + 1) + min
+// console.log(intRandom(10,20));
+
+// Rounding integers , all these methods do coartion type on auto.
+
+// console.log(Math.round(23.4));
+// console.log(Math.round('23.4'));
+// console.log(Math.ceil(23.4));
+
+// console.log(Math.floor(23.6));
+// console.log(Math.trunc(23.6));
+
+// console.log(Math.floor(-23.6));
+// console.log(Math.round(-23.7));
+// console.log(Math.trunc(-23.6));
+
+// // 
+// // Round decimals
+
+// // toFixed will always return STRING
+// console.log((2.7).toFixed(0));
+// console.log(+(2.7).toFixed(3));
+// console.log(+(2.735).toFixed(3));
+
+// REMAINDER OPERATOR
+console.log(6 % 2);
+
+const isEven = n => n % 2 === 0
+console.log(isEven(8));
+console.log(isEven(514));
+console.log(isEven(321));
+
+labelBalance.addEventListener('click', function() {
+  [...document.querySelectorAll('.movements__row')].forEach(function(row,i){
+    if (i % 2 === 0) row.style.backgroundColor = 'grey'
+    if (i % 3 === 0) row.style.backgroundColor = 'orange'
+  })
+})
+
+// NUMERIC SEPARATORS _
+
+const diameter =  287_460_000_000
+console.log(diameter);
+
+const cents = 350_50 
+console.log(cents);
