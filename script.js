@@ -5,6 +5,18 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250, -10000],
   interestRate: 1.2,
   pin: 1111,
+  movementsDates: [
+    '2021-11-18T21:31:17.178Z',
+    '2021-12-23T07:42:02.383Z',
+    '2022-01-28T09:15:04.904Z',
+    '2022-04-01T10:17:24.185Z',
+    '2022-05-08T14:11:59.604Z',
+    '2022-05-27T17:01:17.194Z',
+    '2022-07-11T23:36:17.929Z',
+    '2022-07-12T10:51:36.790Z',
+  ],
+  currency: 'EUR',
+  locale: 'ltu-LTU'
 };
 
 const account2 = {
@@ -12,6 +24,18 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+  movementsDates: [
+    '2021-11-18T21:31:17.178Z',
+    '2021-12-23T07:42:02.383Z',
+    '2021-01-28T09:15:04.904Z',
+    '2021-04-01T10:17:24.185Z',
+    '2021-05-08T14:11:59.604Z',
+    '2022-05-27T17:01:17.194Z',
+    '2022-07-11T23:36:17.929Z',
+    '2022-07-12T10:51:36.790Z',
+  ],
+  currency: 'EUR',
+  locale: 'pt-PT'
 };
 
 const account3 = {
@@ -508,24 +532,66 @@ movements.sort((a, b) => b - a);
 // console.log(+(2.735).toFixed(3));
 
 // REMAINDER OPERATOR
-console.log(6 % 2);
+// console.log(6 % 2);
+// const isEven = n => n % 2 === 0
+// console.log(isEven(8));
+// console.log(isEven(514));
+// console.log(isEven(321));
 
-const isEven = n => n % 2 === 0
-console.log(isEven(8));
-console.log(isEven(514));
-console.log(isEven(321));
-
-labelBalance.addEventListener('click', function() {
-  [...document.querySelectorAll('.movements__row')].forEach(function(row,i){
-    if (i % 2 === 0) row.style.backgroundColor = 'grey'
-    if (i % 3 === 0) row.style.backgroundColor = 'orange'
-  })
-})
+// labelBalance.addEventListener('click', function() {
+//   [...document.querySelectorAll('.movements__row')].forEach(function(row,i){
+//     if (i % 2 === 0) row.style.backgroundColor = 'grey'
+//     if (i % 3 === 0) row.style.backgroundColor = 'orange'
+//   })
+// })
 
 // NUMERIC SEPARATORS _
+// const diameter =  287_460_000_000
+// console.log(diameter);
 
-const diameter =  287_460_000_000
-console.log(diameter);
+// const cents = 350_50 
+// console.log(cents);
 
-const cents = 350_50 
-console.log(cents);
+//-----------------------------------------
+
+// // DATE 
+// const currentTime =  new Date()
+// // console.log(currentTime);
+
+// // console.log(account2.movementsDates[0]);
+// console.log(new Date (account2.movementsDates[0]));
+
+// console.log(new Date(2022, 7, 17, 20, 59, 26));
+
+// console.log(new Date(0));
+
+// // milliseconds(time-stamp) in days 
+// console.log(new Date(7 * 24 * 60 * 60 * 1000));
+
+
+// Working with dates
+
+const future = new Date(2022, 7, 17, 20, 59, 26)
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime());
+
+// time stamp
+console.log(new Date(1660762766000));
+
+console.log(Date.now());
+
+
+// Set
+
+future.setFullYear(3000)
+console.log(future);
+
+// -------------------------------------
+
