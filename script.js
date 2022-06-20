@@ -16,7 +16,7 @@ const account1 = {
     '2022-07-12T10:51:36.790Z',
     '2022-06-11T23:36:17.929Z',
     '2022-06-25T10:51:36.790Z',
-    '2022-08-26T10:51:36.790Z',
+    '2022-06-21T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'ltu-LTU',
@@ -99,8 +99,20 @@ const inputClosePin = document.querySelector('.form__input--pin');
 //   containerMovements.insertAdjacentHTML('afterbegin', html)
 //   })
 // }
-// displayMovements(account1.movements)
+// date fun 
+const  formatMovementsDate = function(date) {
+  const calcDaysPassed = (date1, date2) => Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
+  const daysPassed = calcDaysPassed(new Date(), date)
+  console.log(daysPassed);
+
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+
+} 
+// displayMovements(account1.movements)
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
   const movs = sort
@@ -111,10 +123,13 @@ const displayMovements = function (acc, sort = false) {
     const type = mov > 0 ? 'deposit 💹' : 'withdrawal 📉';
     // date
     const date = new Date(acc.movementsDates[i]);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const displayDate = `${day}/${month}/${year}`;
+    const displayDate = formatMovementsDate(date)
+    // const day = `${date.getDate()}`.padStart(2, 0);
+    // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    // const year = date.getFullYear();
+    // const displayDate = `${day}/${month}/${year}`;
+
+    // const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
     //
     const html = `
     <div class="movements__row">
@@ -222,18 +237,18 @@ const now = new Date();
 const day = `${now.getDate()}`.padStart(2, 0);
 const month = `${now.getMonth() + 1}`.padStart(2, 0);
 const year = now.getFullYear();
-const hour = `${now.getHours()}`.padStart(2,0);
-const minutes = `${now.getMinutes()}`.padStart(2,0);
+const hour = `${now.getHours()}`.padStart(2, 0);
+const minutes = `${now.getMinutes()}`.padStart(2, 0);
 labelDate.textContent = `${day} / ${month} / ${year}, ${hour}:${minutes}`;
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
-  console.log('login');
+  // console.log('login');
 
   currentAccount = accounts.find(
     acc => acc.userShortName === inputLoginUsername.value
   );
-  console.log(currentAccount);
+  // console.log(currentAccount);
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     labelWelcome.textContent = `Welcome back ${
       currentAccount.owner.split(' ')[0]
@@ -266,10 +281,10 @@ btnTransfer.addEventListener('click', function (e) {
     console.log('transfer ok');
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
-// add transfer time date
-    currentAccount.movementsDates.push(new Date().toISOString())
-    receiverAcc.movementsDates.push(new Date().toISOString())
-// 
+    // add transfer time date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+    //
     updateUI(currentAccount);
   }
 });
@@ -301,7 +316,7 @@ btnLoan.addEventListener('click', function (e) {
     // movement add
     currentAccount.movements.push(amount);
     // add loan date
-    currentAccount.movementsDates.push(new Date().toISOString())
+    currentAccount.movementsDates.push(new Date().toISOString());
     updateUI(currentAccount);
   }
   inputLoanAmount.value = '';
@@ -648,5 +663,9 @@ movements.sort((a, b) => b - a);
 // console.log(future);
 
 // -------------------------------------
+const future = new Date(2033, 10, 20, 15, 23);
+console.log(+future);
 
-new date
+const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+const days1 = calcDaysPassed(new Date(2037, 3, 4), new Date(2037, 3, 14 , 10 , 8));
+console.log(days1);
