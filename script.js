@@ -19,7 +19,7 @@ const account1 = {
     '2022-06-20T10:51:36.790Z',
   ],
   currency: 'EUR',
-  locale: 'ltu-LTU',
+  locale: 'lt-LT',
 };
 
 const account2 = {
@@ -49,6 +49,8 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
+  currency: 'GBP',
+  locale: 'en-GB'
 };
 
 const account4 = {
@@ -56,6 +58,8 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  currency: 'USD',
+  locale: 'en-US'
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -263,19 +267,6 @@ const options = {
   weekday: 'long',
 };
 
-const x = Math.floor(Math.random() * 30);
-const optionss = {
-  style: 'unit',
-  unit: 'kilometer-per-hour',
-};
-console.log('Lithunia | ', new Intl.NumberFormat('lt-LT', optionss).format(x));
-console.log('Russia | ', new Intl.NumberFormat('ru-Ru', optionss).format(x));
-
-console.log(
-  navigator.language,
-  new Intl.NumberFormat(navigator.language, optionss).format(x)
-);
-
 // const locale = navigator.language;
 // console.log(locale);
 labelDate.textContent = new Intl.DateTimeFormat(
@@ -290,6 +281,25 @@ labelDate.textContent = new Intl.DateTimeFormat(
 // const hour = `${now.getHours()}`.padStart(2, 0);
 // const minutes = `${now.getMinutes()}`.padStart(2, 0);
 // labelDate.textContent = `${day} / ${month} / ${year}, ${hour}:${minutes}`;
+// 
+// 
+// ---------------- 
+
+// INTL NUMBERS
+// const x = Math.floor(Math.random() * 30);
+// const optionss = {
+//   style: 'currency',
+//   unit: 'kilometer-per-hour',
+//   currency: 'EUR'
+// };
+// console.log('Lithunia | ', new Intl.NumberFormat('lt-LT', optionss).format(x));
+// console.log('Russia | ', new Intl.NumberFormat('ru-Ru', optionss).format(x));
+
+// ---------------- 
+// 
+// 
+
+
 
 //
 btnLogin.addEventListener('click', function (e) {
