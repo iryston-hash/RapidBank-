@@ -263,14 +263,18 @@ const options = {
   weekday: 'long',
 };
 
-const x = 20202020
+const x = Math.floor(Math.random() * 30);
 const optionss = {
   style: 'unit',
-  unit: 'kilometer-per-hour'
-}
-console.log('Lithunia', new Intl.NumberFormat('lt-LT').format(x));
-console.log('Russia', new Intl.NumberFormat('ru-Ru').format(x) );
+  unit: 'kilometer-per-hour',
+};
+console.log('Lithunia | ', new Intl.NumberFormat('lt-LT', optionss).format(x));
+console.log('Russia | ', new Intl.NumberFormat('ru-Ru', optionss).format(x));
 
+console.log(
+  navigator.language,
+  new Intl.NumberFormat(navigator.language, optionss).format(x)
+);
 
 // const locale = navigator.language;
 // console.log(locale);
