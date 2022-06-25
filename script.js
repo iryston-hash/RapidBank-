@@ -262,6 +262,16 @@ const options = {
   year: 'numeric',
   weekday: 'long',
 };
+
+const x = 20202020
+const optionss = {
+  style: 'unit',
+  unit: 'kilometer-per-hour'
+}
+console.log('Lithunia', new Intl.NumberFormat('lt-LT').format(x));
+console.log('Russia', new Intl.NumberFormat('ru-Ru').format(x) );
+
+
 // const locale = navigator.language;
 // console.log(locale);
 labelDate.textContent = new Intl.DateTimeFormat(
