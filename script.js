@@ -49,8 +49,21 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
+  movementsDates: [
+    '2021-11-18T21:31:17.178Z',
+    '2021-12-23T07:42:02.383Z',
+    '2021-01-28T09:15:04.904Z',
+    '2021-04-01T10:17:24.185Z',
+    '2021-05-08T14:11:59.604Z',
+    '2022-05-27T17:01:17.194Z',
+    '2022-06-11T23:36:17.929Z',
+    '2022-06-25T10:51:36.790Z',
+    '2022-08-26T10:51:36.790Z',
+    '2022-08-30T10:51:36.790Z',
+    '2022-09-12T10:51:36.790Z',
+  ],
   currency: 'GBP',
-  locale: 'en-GB'
+  locale: 'en-GB',
 };
 
 const account4 = {
@@ -58,8 +71,21 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  movementsDates: [
+    '2021-11-18T21:31:17.178Z',
+    '2021-12-23T07:42:02.383Z',
+    '2021-01-28T09:15:04.904Z',
+    '2021-04-01T10:17:24.185Z',
+    '2021-05-08T14:11:59.604Z',
+    '2022-05-27T17:01:17.194Z',
+    '2022-06-11T23:36:17.929Z',
+    '2022-06-25T10:51:36.790Z',
+    '2022-08-26T10:51:36.790Z',
+    '2022-08-30T10:51:36.790Z',
+    '2022-09-12T10:51:36.790Z',
+  ],
   currency: 'USD',
-  locale: 'en-US'
+  locale: 'en-US',
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -103,24 +129,28 @@ const inputClosePin = document.querySelector('.form__input--pin');
 //   containerMovements.insertAdjacentHTML('afterbegin', html)
 //   })
 // }
-// date fun
+//
 
+// -----------
+// dates & functions of transactions
 const formatMovementsDate = function (date) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
   const daysPassed = calcDaysPassed(new Date(), date);
-  console.log(daysPassed);
-
+  // console.log(daysPassed);
   if (daysPassed === 0) return 'Today';
   if (daysPassed === 1) return 'Yestarday';
   if (daysPassed <= 7) return `${daysPassed} days ago`;
 
-  const day = `${date.getDate()}`.padStart(2, 0);
-  const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
+  // return `${day}/${month}/${year}`;
 };
+// -----------
+//
+
 // displayMovements(account1.movements)
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
@@ -240,39 +270,51 @@ let currentAccount;
 // containerApp.style.opacity = 100;
 
 //
-
-// DATE API
-// const nows = new Date();
-// const options = {
-//   hour: 'numeric' ,
-//   minute: 'numeric',
-//   day: 'numeric',
-//   month: 'long',// 'numeric' , 'long', '2-digit'
-//   year: 'numeric',
-//   weekday: 'long'
-
-// };
-// const locale = navigator.language
-// console.log(locale);
-// labelDate.textContent = new Intl.DateTimeFormat('locale', options).format(nows)
-
-// DATE
-const now = new Date();
-const options = {
+const dateapi = new Date();
+const dateapiOptions = {
+  weekday: 'long',
   hour: 'numeric',
   minute: 'numeric',
   day: 'numeric',
-  month: 'long', // 'numeric' , 'long', '2-digit'
-  year: 'numeric',
-  weekday: 'long',
+  month: 'long',
+  year: 'numeric'
 };
+labelDate.textContent = new Intl.DateTimeFormat('locale', dateapiOptions).format(dateapi);
+// ----------------------
+// DATE API
+// const nows = new Date();
+// const options = {
+//   hour: 'numeric',
+//   minute: 'numeric',
+//   day: 'numeric',
+//   month: 'numeric', // 'numeric' , 'long', '2-digit'
+//   year: 'numeric',
+//   weekday: 'long',
+// };
+// // const locale = navigator.language
+// // console.log(locale);
+// labelDate.textContent = new Intl.DateTimeFormat(currentAccount, options).format(nows);
+// ----------------------
+//
+
+// DATE
+// const now = new Date();
+// const options = {
+//   hour: 'numeric',
+//   minute: 'numeric',
+//   day: 'numeric',
+//   month: 'numeric', // 'numeric' , 'long', '2-digit'
+//   year: 'numeric',
+//   weekday: 'long',
+// };
 
 // const locale = navigator.language;
 // console.log(locale);
-labelDate.textContent = new Intl.DateTimeFormat(
-  currentAccount.locale,
-  options
-).format(now);
+// labelDate.textContent = new Intl.DateTimeFormat(
+//   currentAccount.locale,
+//   options
+// ).format(now);
+
 // labelDate.textContent = new Intl.DateTimeFormat('locale', options).format(now)
 
 // const day = `${now.getDate()}`.padStart(2, 0);
@@ -281,10 +323,9 @@ labelDate.textContent = new Intl.DateTimeFormat(
 // const hour = `${now.getHours()}`.padStart(2, 0);
 // const minutes = `${now.getMinutes()}`.padStart(2, 0);
 // labelDate.textContent = `${day} / ${month} / ${year}, ${hour}:${minutes}`;
-// 
-// 
-// ---------------- 
-
+//
+//
+// ----------------
 // INTL NUMBERS
 // const x = Math.floor(Math.random() * 30);
 // const optionss = {
@@ -294,12 +335,9 @@ labelDate.textContent = new Intl.DateTimeFormat(
 // };
 // console.log('Lithunia | ', new Intl.NumberFormat('lt-LT', optionss).format(x));
 // console.log('Russia | ', new Intl.NumberFormat('ru-Ru', optionss).format(x));
-
-// ---------------- 
-// 
-// 
-
-
+// ----------------
+//
+//
 
 //
 btnLogin.addEventListener('click', function (e) {
