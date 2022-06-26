@@ -268,7 +268,8 @@ let currentAccount;
 // currentAccount = account1;
 // updateUI(currentAccount);
 // containerApp.style.opacity = 100;
-
+const xor = new Date()
+console.log(new Intl.DateTimeFormat('').format());
 //
 const dateapi = new Date();
 const dateapiOptions = {
