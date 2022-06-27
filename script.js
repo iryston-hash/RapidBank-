@@ -268,9 +268,7 @@ let currentAccount;
 // currentAccount = account1;
 // updateUI(currentAccount);
 // containerApp.style.opacity = 100;
-const xor = new Date()
-console.log(new Intl.DateTimeFormat('').format());
-//
+
 const dateapi = new Date();
 const dateapiOptions = {
   weekday: 'long',
@@ -278,9 +276,12 @@ const dateapiOptions = {
   minute: 'numeric',
   day: 'numeric',
   month: 'long',
-  year: 'numeric'
+  year: 'numeric',
 };
-labelDate.textContent = new Intl.DateTimeFormat('locale', dateapiOptions).format(dateapi);
+labelDate.textContent = new Intl.DateTimeFormat(
+  'locale',
+  dateapiOptions
+).format(dateapi);
 // ----------------------
 // DATE API
 // const nows = new Date();
@@ -762,14 +763,37 @@ movements.sort((a, b) => b - a);
 // future.setFullYear(3000);
 // console.log(future);
 
-// -------------------------------------
-const future = new Date(2033, 10, 20, 15, 23);
-console.log(+future);
+// // -------------------------------------
+// const future = new Date(2033, 10, 20, 15, 23);
+// // console.log(+future);
 
-const calcDaysPassed = (date1, date2) =>
-  Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
-const days1 = calcDaysPassed(
-  new Date(2037, 3, 4),
-  new Date(2037, 3, 14, 10, 8)
-);
-console.log(days1);
+// const calcDaysPassed = (date1, date2) =>
+//   Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+// const days1 = calcDaysPassed(
+//   new Date(2037, 3, 4),
+//   new Date(2037, 3, 14, 10, 8)
+// );
+// // console.log(days1);
+
+// -------------------------------------
+// // setTimeout function
+// const pieIngredients = ['apples', 'oranges', 'choco'];
+// const pieTimer = setTimeout(
+//   () =>
+//     console.log(`Your pie is ready,
+
+// ingredients used are: ${pieIngredients}`),
+//   2000,
+//   ...pieIngredients
+// );
+// if (pieIngredients.includes('appless')) clearTimeout(pieTimer)
+// -------------------------------------
+// 
+// 
+// -------------------------------------
+// setInterval
+setInterval(function () {
+  const now = new Date();
+  console.log(now);
+},1000);
+// -------------------------------------
