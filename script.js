@@ -363,6 +363,7 @@ btnLogin.addEventListener('click', function (e) {
   // calcPrintBalance(currentAccount);
   // calcPrintSummary(currentAccount);
   updateUI(currentAccount);
+  startLogOutTimer()
 });
 
 //  transfer
@@ -430,6 +431,26 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(acc.movements, !sorted);
   sorted = !sorted;
 });
+
+// ----------------------
+// LOG OFF TIMER
+const startLogOutTimer = function () {
+  let time = 100;
+
+  setInterval(function () {
+    const min = time / 60
+    const sec = time % 60
+
+    labelTimer.textContent = `${min}:${sec}`
+
+    time--;
+``
+  }, 1000);
+};
+
+
+
+// ----------------------
 
 ///////////////////////////////////////////////////////////
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300, 9000, 250 , -10000]
@@ -788,12 +809,12 @@ movements.sort((a, b) => b - a);
 // );
 // if (pieIngredients.includes('appless')) clearTimeout(pieTimer)
 // -------------------------------------
-// 
-// 
+//
+//
 // -------------------------------------
-// setInterval
-setInterval(function () {
-  const now = new Date();
-  console.log(now);
-},1000);
+// // setInterval
+// setInterval(function () {
+//   const now = new Date();
+//   console.log(now);
+// },1000);
 // -------------------------------------
