@@ -363,7 +363,7 @@ btnLogin.addEventListener('click', function (e) {
   // calcPrintBalance(currentAccount);
   // calcPrintSummary(currentAccount);
   updateUI(currentAccount);
-  startLogOutTimer()
+  startLogOutTimer();
 });
 
 //  transfer
@@ -434,28 +434,42 @@ btnSort.addEventListener('click', function (e) {
 
 // ----------------------
 // LOG OFF TIMER
+const startLogOutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, '0');
+    const sec = String(time % 60).padStart(2, '0');
+    labelTimer.textContent = `${min}:${sec}`;
+    time--;
+    // Stop Timer (clearInterval)
+    if (time == -1) {
+      clearInterval(timer);
+      labelWelcome.textContent = `You were logged off.
+      Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+  };
+  let time = 300;
+
+  tick();
+  const timer = setInterval(tick, 1000);
+};
+
 // const startLogOutTimer = function () {
-//   let time = 100;
-
-//   setInterval(function () {
-//     const min = time / 60
-//     const sec = time % 60
-
-//     labelTimer.textContent = `${min}:${sec}`
-
+//   let time = 10;
+//   const timer = setInterval(function () {
+//     const min = String(Math.trunc(time / 60)).padStart(2, '0');
+//     const sec = String(time % 60).padStart(2, '0');
+//     labelTimer.textContent = `${min}:${sec}`;
 //     time--;
-// ``
+//     // Stop Timer (clearInterval)
+//     if (time == -1) {
+//       clearInterval(timer);
+//       labelWelcome.textContent = `You were logged off.
+//       Log in to get started`;
+//       containerApp.style.opacity = 0;
+//     }
 //   }, 1000);
 // };
-
-const startLogOutTimer = function() {
-  let time = 100 
-  setInterval(function()  {
-   labelTimer.textContent = time 
-   time = time - 1    
-  }, 1000 );
-} 
-
 
 // ----------------------
 
