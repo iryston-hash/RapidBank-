@@ -448,10 +448,10 @@ const startLogOutTimer = function () {
     }
     time--;
   };
-  let time = 20;
+  let time = 300;
 
   tick();
-  const timer = setInterval(tick, 100);
+  const timer = setInterval(tick, 1000);
 };
 
 // const startLogOutTimer = function () {
