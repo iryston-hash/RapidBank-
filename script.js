@@ -434,20 +434,27 @@ btnSort.addEventListener('click', function (e) {
 
 // ----------------------
 // LOG OFF TIMER
-const startLogOutTimer = function () {
-  let time = 100;
+// const startLogOutTimer = function () {
+//   let time = 100;
 
-  setInterval(function () {
-    const min = time / 60
-    const sec = time % 60
+//   setInterval(function () {
+//     const min = time / 60
+//     const sec = time % 60
 
-    labelTimer.textContent = `${min}:${sec}`
+//     labelTimer.textContent = `${min}:${sec}`
 
-    time--;
-``
-  }, 1000);
-};
+//     time--;
+// ``
+//   }, 1000);
+// };
 
+const startLogOutTimer = function() {
+  let time = 100 
+  setInterval(function()  {
+   labelTimer.textContent = time 
+   time = time - 1    
+  }, 1000 );
+} 
 
 
 // ----------------------
