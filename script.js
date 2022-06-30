@@ -30,31 +30,8 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-
 const header = document.querySelector('.header')
-// const allSections = document.querySelectorAll('.section')
-// console.log(allSections);
-// const allBtns  = document.getElementsByTagName('button')
-// console.log(allBtns); 
-
-// Creating & inserting el's
-
-const message = document.createElement('div')
-message.classList.add('cookie-message')
-
-// message.textContent = 'We use cookies for user experience, no personal informatio is gathered'
-
-message.innerHTML = 'We use cookies for user experience, no personal information is gathered <button class="btn btn--close-cookie">Dismiss</button>'
-
-// PREPEND adds elements as a firstChild of Parent element
-// header.prepend(message)
-// APPEND is another way around PREPEND
-header.append(message)
-// header.append(message.cloneNode(true))
-
-// ---- DELETE el's
-document.querySelector('.btn--close-cookie').addEventListener('click', function() {
-  // old way to remove el -> message.parentElement.removeChild(message)
-  message.remove()
-})
-
+const cookieMsg = document.createElement('div')
+cookieMsg.classList.add('cookie-message')
+cookieMsg.innerHTML = `We are using cookies on this Website for better User Experience <button class="btn btn--close-cookie">Dismiss</button>`
+header.append(cookieMsg)
