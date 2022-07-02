@@ -59,7 +59,12 @@ const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
-  console.log(e.target.getBoundingClientRect());
-  console.log('Coords X/Y', window.scrollX);
+  console.log('Coords X/Y', window.scrollX, scrollY);
+  console.log(
+    'Height/Width vp',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+  // precise scrolling old scool way
+  window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
 });
