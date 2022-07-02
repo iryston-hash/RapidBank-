@@ -64,7 +64,10 @@ btnScrollTo.addEventListener('click', function (e) {
     'Height/Width vp',
     document.documentElement.clientHeight,
     document.documentElement.clientWidth
-  );
+  )
+  console.log('s1',s1coords);
+  console.log('rect',e.target.getBoundingClientRect());
+
   // precise scrolling old scool way
   window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
 });
