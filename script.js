@@ -54,20 +54,55 @@ const cookieMsgBgMouseOver = document
   });
 
 // smooth scroll
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+// const btnScrollTo = document.querySelector('.btn--scroll-to');
+// const section1 = document.querySelector('#section--1');
 
-btnScrollTo.addEventListener('click', function (e) {
-  const s1coords = section1.getBoundingClientRect();
-  console.log('Coords X/Y', window.scrollX, scrollY);
-  console.log(
-    'Height/Width vp',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth
-  )
-  console.log('s1',s1coords);
-  console.log('rect',e.target.getBoundingClientRect());
+// btnScrollTo.addEventListener('click', function (e) {
+//   const s1coords = section1.getBoundingClientRect();
+//   console.log('Coords X/Y', window.scrollX, scrollY);
+//   console.log(
+//     'Height/Width vp',
+//     document.documentElement.clientHeight,
+//     document.documentElement.clientWidth
+//   );
+//   console.log('s1', s1coords);
+//   console.log('rect', e.target.getBoundingClientRect());
 
-  // precise scrolling old scool way
-  window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
-});
+//   // precise scrolling old scool way
+//   // window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
+//   window.scrollTo({
+//     left: s1coords.left + window.scrollX,
+//     top: s1coords.top + window.scrollY,
+//   });
+// });
+
+//  newier way
+
+// const btnScrollTo = document.querySelector('.btn--scroll-to');
+// const section1 = document.querySelector('#section--1');
+
+// const btnScrollToE = btnScrollTo.addEventListener('click', function (e) {
+//   const s1coords = section1.getBoundingClientRect();
+//   window.scrollTo({
+//     left: s1coords.left + window.screenX,
+//     top: s1coords.top + window.screenY
+//   })
+// });
+
+const btnScrollTo = document.querySelector('.btn--scroll-to')
+const section1 = document.getElementById('section--1')
+const btnScrollToEL =  btnScrollTo.addEventListener('click', function(e) {
+  const coords1 = section1.getBoundingClientRect()
+  window.scrollTo({
+    left: coords1.left + window.scrollX,
+    top: coords1.top + window.scrollY,
+    behavior: 'smooth'
+  })
+})
+
+const h1 = document.querySelector('h1')
+const alertH1 = function(e){ 
+  alert('Result: caniuse test')
+  h1.removeEventListener('mouseover', alertH1)
+}
+h1.addEventListener('mouseover', alertH1)
