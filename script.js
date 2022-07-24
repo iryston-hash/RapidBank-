@@ -89,6 +89,28 @@ const navScroll = document
   });
 
 // -----
+// downwards
+const h1 = document.querySelector('h1');
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes);
+// console.log(h1.children);
+h1.firstElementChild.style.color = 'black';
+h1.lastElementChild.style.color = 'black';
+
+// upwards
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+// h1.closest('.header').style.backgroundColor = 'Black'
+
+// Siblings
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
+// ----- DOM Traversing
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = 'scale(1)';
+// });
+// // -----
 
 // const btnScrollTo = document.querySelector('.btn--scroll-to');
 // const section1 = document.querySelector('#section--1');
