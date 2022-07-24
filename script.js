@@ -1,6 +1,6 @@
 'use strict';
 
-// Modal window
+// ---- Modal window
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
@@ -16,7 +16,7 @@ const closeModal = function () {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 };
-//
+// ----
 btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 // for (let i = 0; i < btnsOpenModal.length; i++)
 //   btnsOpenModal[i].addEventListener('click', openModal);
@@ -30,8 +30,6 @@ document.addEventListener('keydown', function (e) {
   }
 });
 // ---- Cookie Message
-
-// ----
 const header = document.querySelector('.header');
 const cookieMsg = document.createElement('div');
 cookieMsg.classList.add('cookie-message');
@@ -52,8 +50,46 @@ const cookieMsgBgMouseOver = document
   .addEventListener('mouseout', function () {
     cookieMsg.style.background = '#ffcd0331';
   });
+// ----
 
-// smooth scroll
+// ---- smooth scroll
+// const btnScrollTo = document.querySelector('.btn--scroll-to');
+// const section1 = document.getElementById('section--1');
+// const btnScrollToEL = btnScrollTo.addEventListener('click', function (e) {
+//   const coords1 = section1.getBoundingClientRect();
+//   window.scrollTo({
+//     left: coords1.left + window.scrollX,
+//     top: coords1.top + window.scrollY,
+//     behavior: 'smooth',
+//   });
+// });
+
+// ----- EVENT DELEGATION (with Scroll)
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   console.log(e.target);
+//   e.preventDefault();
+//   if (e.target.classList.contains('nav__link')) {
+//     const id = e.target.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({
+//       behavior: 'smooth',
+//     });
+//   }
+// });
+
+const navScroll = document
+  .querySelector('.nav__links')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains('nav__link')) {
+      const id = e.target.getAttribute('href');
+      document.querySelector(id).scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+  });
+
+// -----
+
 // const btnScrollTo = document.querySelector('.btn--scroll-to');
 // const section1 = document.querySelector('#section--1');
 
@@ -88,21 +124,15 @@ const cookieMsgBgMouseOver = document
 //     top: s1coords.top + window.screenY
 //   })
 // });
+// -----
 
-const btnScrollTo = document.querySelector('.btn--scroll-to')
-const section1 = document.getElementById('section--1')
-const btnScrollToEL =  btnScrollTo.addEventListener('click', function(e) {
-  const coords1 = section1.getBoundingClientRect()
-  window.scrollTo({
-    left: coords1.left + window.scrollX,
-    top: coords1.top + window.scrollY,
-    behavior: 'smooth'
-  })
-})
+// random number
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
 
-const h1 = document.querySelector('h1')
-const alertH1 = function(e){ 
-  alert('Result: caniuse test')
-  h1.removeEventListener('mouseover', alertH1)
-}
-h1.addEventListener('mouseover', alertH1)
+// const randomColorEL = document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log(e.target);
+// });

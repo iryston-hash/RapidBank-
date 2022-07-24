@@ -1,7 +1,7 @@
 /* The page is NOT responsive. You can implement responsiveness yourself if you wanna have some fun 😃 */
 
 :root {
-  --color-primary: #be9620;
+  --color-primary: #02b5859d;
   --color-secondary: #ffcb03;
   --color-tertiary: #ff585f;
   --color-primary-darker: #4bbb7d;
@@ -31,7 +31,7 @@ body {
   font-weight: 300;
   color: #444;
   line-height: 1.9;
-  background-color: #f3f3f3;
+  background-color: #b2a785;
 }
 
 /* GENERAL ELEMENTS */
@@ -228,8 +228,6 @@ h4 {
   transform: scale(1.07, 1.05) skewX(-15deg);
   background-image: var(--gradient-primary);
 }
-
-
 
 /* FEATURES */
 .features {
