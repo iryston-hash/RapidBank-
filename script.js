@@ -1,4 +1,5 @@
 'use strict';
+const nav = document.querySelector('.nav');
 
 // ---- Modal window
 const modal = document.querySelector('.modal');
@@ -135,6 +136,27 @@ h1.lastElementChild.style.color = 'black';
 // });
 // // -----
 
+// ----- Menu fade ani. (aDL('mouseenter')#does not bubble), Passing args to Event handler
+
+nav.addEventListener('mouseover', function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const sibs = link.closest('.nav').querySelectorAll('.nav__link');
+    sibs.forEach(el => {
+      if (el !== link) el.style.opacity = 0.5;
+    });
+  }
+});
+
+nav.addEventListener('mouseout', function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const sibs = link.closest('.nav').querySelectorAll('.nav__link');
+    sibs.forEach(el => {
+      if (el !== link) el.style.opacity = 1;
+    });
+  }
+});
 // -----
 
 // const btnScrollTo = document.querySelector('.btn--scroll-to');
