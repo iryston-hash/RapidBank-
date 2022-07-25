@@ -1,6 +1,5 @@
 'use strict';
 const nav = document.querySelector('.nav');
-const section1Sticky = document.querySelector('#section--1');
 // ---- Modal window
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
@@ -230,36 +229,19 @@ nav.addEventListener('mouseout', navHoverFun.bind(1));
 // ---- Sticky menu
 
 // ✅ using INTERSECTIONOBSERVER API
-// const navHeight = nav.getBoundingClientRect().height;
-// const navSticky = function (entries) {
-//   const [entry] = entries;
-//   console.log(entry);
-
-//   if (!entry.isIntersecting) nav.classList.add('sticky');
-//   else nav.classList.remove('sticky');
-// };
-
-// const headerObserver = new IntersectionObserver(navSticky, {
-//   root: null,
-//   threshold: 0,
-//   rootMargin: `-${navHeight}px`,
-// });
-// headerObserver.observe(header);
-
 const navHeight = nav.getBoundingClientRect().height;
 const navSticky = function (entries) {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
-const headerObserver = new IntersectionObserver(navSticky,{
+
+const headerObserver = new IntersectionObserver(navSticky, {
   root: null,
   threshold: 0,
-  rootMargin: `-${navHeight}px`
-})
-headerObserver.observe(header)
-
+  rootMargin: `-${navHeight}px`,
+});
+headerObserver.observe(header);
 // ❌
 // const coords = section1Sticky.getBoundingClientRect();
 // console.log(coords);
@@ -269,3 +251,22 @@ headerObserver.observe(header)
 //   if (window.scrollY > coords.top) nav.classList.add('sticky');
 //   else nav.classList.remove('sticky');
 // });
+
+// Reavel elements using IntersectionObserver
+const sectionsAll = document.querySelectorAll('.section');
+const sectionReveal = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target)
+};
+
+const sectionObserver = new IntersectionObserver(sectionReveal, {
+  root: null,
+  threshold: 0.15,
+});
+sectionsAll.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
