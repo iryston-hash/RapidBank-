@@ -138,27 +138,48 @@ h1.lastElementChild.style.color = 'black';
 
 // ----- Menu fade ani. (aDL('mouseenter')#does not bubble), Passing args to Event handler
 
-nav.addEventListener('mouseover', function (e) {
+//  Passing args , refactor
+const navHoverFun = function (e, opacity) {
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
     const sibs = link.closest('.nav').querySelectorAll('.nav__link');
     sibs.forEach(el => {
-      if (el !== link) el.style.opacity = 0.5;
+      if (el !== link) el.style.opacity = this;
     });
   }
-});
+};
+nav.addEventListener('mouseover', navHoverFun.bind(0.5));
+nav.addEventListener('mouseout', navHoverFun.bind(1));
 
-nav.addEventListener('mouseout', function (e) {
-  if (e.target.classList.contains('nav__link')) {
-    const link = e.target;
-    const sibs = link.closest('.nav').querySelectorAll('.nav__link');
-    sibs.forEach(el => {
-      if (el !== link) el.style.opacity = 1;
-    });
-  }
-});
+// nav.addEventListener('mouseover', function (e) {
+//   navHoverFun(e, 0.5);
+// });
+// nav.addEventListener('mouseout', function (e) {
+//   navHoverFun(e, 1);
+// });
+
+// nav.addEventListener('mouseover', function (e) {
+//   if (e.target.classList.contains('nav__link')) {
+//     const link = e.target;
+//     const sibs = link.closest('.nav').querySelectorAll('.nav__link');
+//     sibs.forEach(el => {
+//       if (el !== link) el.style.opacity = 0.5;
+//     });
+//   }
+// });
+
+// nav.addEventListener('mouseout', function (e) {
+//   if (e.target.classList.contains('nav__link')) {
+//     const link = e.target;
+//     const sibs = link.closest('.nav').querySelectorAll('.nav__link');
+//     sibs.forEach(el => {
+//       if (el !== link) el.style.opacity = 1;
+//     });
+//   }
+// });
 // -----
 
+// ----- SCROLL
 // const btnScrollTo = document.querySelector('.btn--scroll-to');
 // const section1 = document.querySelector('#section--1');
 
