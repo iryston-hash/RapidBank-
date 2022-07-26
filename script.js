@@ -44,6 +44,8 @@ const cookieMsgBgColorEL = document
   .querySelector('.cookie-message')
   .addEventListener('mouseover', function () {
     cookieMsg.style.background = 'white';
+    cookieMsg.style.transition = 0.5 + 's';
+    cookieMsg.style.zIndex = 10;
   });
 const cookieMsgBgMouseOver = document
   .querySelector('.cookie-message')
@@ -254,19 +256,37 @@ headerObserver.observe(header);
 
 // Reavel elements using IntersectionObserver
 const sectionsAll = document.querySelectorAll('.section');
+// const sectionReveal = function (entries, observer) {
+//   const [entry] = entries;
+//   console.log(entry);
+//   if (!entry.isIntersecting) return;
+//   entry.target.classList.remove('section--hidden');
+//   observer.unobserve(entry.target);
+// };
+
+// const sectionObserver = new IntersectionObserver(sectionReveal, {
+//   root: null,
+//   threshold: 0.15,
+// });
+// sectionsAll.forEach(function(section) {
+//   sectionObserver.observe(section);
+//   section.classList.add('section--hidden');
+// });
+
 const sectionReveal = function (entries, observer) {
   const [entry] = entries;
   console.log(entry);
   if (!entry.isIntersecting) return;
   entry.target.classList.remove('section--hidden');
-  observer.unobserve(entry.target)
+  observer.unobserve(entry.target);
 };
 
 const sectionObserver = new IntersectionObserver(sectionReveal, {
   root: null,
   threshold: 0.15,
 });
-sectionsAll.forEach(function (section) {
-  sectionObserver.observe(section);
-  section.classList.add('section--hidden');
-});
+
+sectionsAll.forEach(function(section) {
+  sectionObserver.observe(section)
+  section.classList.add('section--hidden')
+})
