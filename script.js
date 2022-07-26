@@ -97,7 +97,7 @@ const tabsContent = document.querySelectorAll('.operations__content');
 
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
-  console.log(clicked);
+  // console.log(clicked);
 
   // guard clause
   if (!clicked) return;
@@ -237,7 +237,6 @@ const navSticky = function (entries) {
   if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
 };
-
 const headerObserver = new IntersectionObserver(navSticky, {
   root: null,
   threshold: 0,
@@ -254,7 +253,7 @@ headerObserver.observe(header);
 //   else nav.classList.remove('sticky');
 // });
 
-// Reavel elements using IntersectionObserver
+// ---- Reavel elements using IntersectionObserver
 const sectionsAll = document.querySelectorAll('.section');
 // const sectionReveal = function (entries, observer) {
 //   const [entry] = entries;
@@ -275,18 +274,38 @@ const sectionsAll = document.querySelectorAll('.section');
 
 const sectionReveal = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) return;
   entry.target.classList.remove('section--hidden');
   observer.unobserve(entry.target);
 };
-
 const sectionObserver = new IntersectionObserver(sectionReveal, {
   root: null,
-  threshold: 0.15,
+  threshold: 0.2,
 });
 
-sectionsAll.forEach(function(section) {
-  sectionObserver.observe(section)
-  section.classList.add('section--hidden')
-})
+sectionsAll.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+
+// ---- Lazy loading Imgs
+const imgLazies = document.querySelectorAll('img[data-src]');
+// console.log(imgLazies);
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  // console.log(entry);
+  if (!entry.isIntersecting) return;
+
+  // replace attributes of images
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entry.target)
+};
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+});
+imgLazies.forEach(img => imgObserver.observe(img));
