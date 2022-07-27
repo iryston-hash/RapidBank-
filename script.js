@@ -285,7 +285,7 @@ const sectionObserver = new IntersectionObserver(sectionReveal, {
 
 sectionsAll.forEach(function (section) {
   sectionObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 // ---- Lazy loading Imgs
@@ -296,16 +296,63 @@ const loadImg = function (entries, observer) {
   const [entry] = entries;
   // console.log(entry);
   if (!entry.isIntersecting) return;
-
   // replace attributes of images
   entry.target.src = entry.target.dataset.src;
   entry.target.addEventListener('load', function () {
     entry.target.classList.remove('lazy-img');
   });
-  observer.unobserve(entry.target)
+  observer.unobserve(entry.target);
 };
 const imgObserver = new IntersectionObserver(loadImg, {
   root: null,
   threshold: 0,
+  rootMargin: '200px',
 });
 imgLazies.forEach(img => imgObserver.observe(img));
+
+// ---- Slider
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+// slides.forEach(
+//   (slide, index) => (slide.style.transform = `translateX(${100 * index}%)`)
+// );
+
+// ---- Slider arrows
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+let currentSlide = 0;
+const maxSlide = slides.length;
+
+const changeSlideFun = function () {
+  slides.forEach(
+    (slide, index) =>
+      (slide.style.transform = `translateX(${100 * (index - currentSlide)}%)`)
+  );
+};
+changeSlideFun(0);
+
+const nextSlide = function () {
+  if (currentSlide === maxSlide - 1) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+  changeSlideFun(currentSlide);
+};
+const prevSlide = function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide - 1;
+  } else {
+    currentSlide--;
+  }
+  changeSlideFun(currentSlide);
+};
+
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
+
+//   slides.forEach(
+//     (slide, index) =>
+//       (slide.style.transform = `translateX(${100 * (index - currentSlide)}%)`)
+//   );
+// });
