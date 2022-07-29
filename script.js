@@ -325,8 +325,8 @@ const maxSlide = slides.length;
 
 const changeSlideFun = function () {
   slides.forEach(
-    (slide, index) =>
-      (slide.style.transform = `translateX(${100 * (index - currentSlide)}%)`)
+    (slide, i) =>
+      (slide.style.transform = `translateX(${100 * (i - currentSlide)}%)`)
   );
 };
 changeSlideFun(0);
@@ -356,3 +356,16 @@ btnLeft.addEventListener('click', prevSlide);
 //       (slide.style.transform = `translateX(${100 * (index - currentSlide)}%)`)
 //   );
 // });
+
+document.addEventListener('DOMContentLoaded', function(e) {
+  console.log('parsed', e);
+} )
+
+window.addEventListener('load', function(e) {
+  console.log('Page loaded', e);
+} )
+
+window.addEventListener('beforeunload', function (e) {
+  console.log(e);
+  e.returnValue = '';
+});
